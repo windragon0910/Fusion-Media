@@ -128,20 +128,20 @@ html {
 
   .fade-out-0 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
   }
 
   .fade-out-1 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
     animation-delay: 0.25s;
   }
   
   .fade-out-2 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
     animation-delay: 0.5s;
   }
@@ -162,41 +162,41 @@ html {
   
   .fade-out-5 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
     animation-delay: 1.25s;
   }
 
   .fade-out-6 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
     animation-delay: 1.5s;
   }
 
   .fade-out-7 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
     animation-delay: 1.75s;
   }
   
   .fade-out-8 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
     animation-delay: 2s;
   }
   .fade-out-9 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
     animation-delay: 2.25s;
   }
   
   .fade-out-10 {
     opacity: 0;
-    animation: fadeOut 1s;
+    animation: fadeOut 2s;
     -webkit-animation-fill-mode: forwards;
     animation-delay: 2.5s;
   }

@@ -1,7 +1,7 @@
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loaderimport { Carousel } from "react-responsive-carousel";
 import { Carousel } from "react-responsive-carousel";
-import { services } from "../constants/services";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loaderimport { Carousel } from "react-responsive-carousel";
 import Veba from "../components/Veba";
+import { services } from "../constants/services";
 
 const Services = () => {
   return (
@@ -9,11 +9,9 @@ const Services = () => {
       <div className="flex flex-col items-center justify-center">
         <p className="title">Our Services</p>
         <div className="w-full">
-          <div className="mb-8">
             <div className="flex w-full items-center justify-center">
               <Veba />
             </div>
-          </div>
           <div className="hidden md:block">
             <div className="grid grid-cols-3 items-center justify-center text-center mx-auto">
               {services.map((service, index) => {

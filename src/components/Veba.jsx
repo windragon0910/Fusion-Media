@@ -11,7 +11,11 @@ let scene,
 var wireframe = true,
   material;
 
-var createIndexedPlaneGeometry = function (width, length) {
+var virtex_w = 75;
+var virtex_h = 30;
+var virtex_p = 0.015;
+
+var createIndexedPlaneGeometryFlag = function (width, length) {
   var geom = new THREE.BufferGeometry();
   var vertices = [];
   var indices = [];
@@ -20,7 +24,7 @@ var createIndexedPlaneGeometry = function (width, length) {
   var length1 = length + 1;
   for (var i = 0; i < width1; i++) {
     for (var j = 0; j < length1; j++) {
-      vertices.push(i / width, 0, j / length);
+      vertices.push(i / width, j / length, 0);
       uvs.push(i / width, j / length);
     }
   }
@@ -47,21 +51,35 @@ var createIndexedPlaneGeometry = function (width, length) {
   return geom;
 };
 
-var main = function (geom, radius) {
+
+var mainflag = function (geom, width, height) {
   var pos = geom.attributes.position.array;
-  var uvs = geom.attributes.uv.array;
 
-  var pi = Math.PI;
+  // var left = 0;//(width/2.0) * virtex_p;
+  var left = (width * virtex_p) / 1.2;
+  var top = -0.5;
 
-  for (var i = 0, u = 0, v = 1; i < pos.length; i += 3, u += 2, v += 2) {
-    pos[i] = radius * Math.sin(uvs[u] * pi) * Math.cos(uvs[v] * 2 * pi);
-    pos[i + 1] = radius * Math.sin(uvs[u] * pi) * Math.sin(uvs[v] * 2 * pi);
-    pos[i + 2] = radius * Math.cos(uvs[u] * pi);
+  for(var w = 0; w < width + 1; w++)
+  {
+    for(var h = 0; h < height + 1; h++)
+    {
+      if( w > 0)
+      {
+        pos[(w * (height+1) +  h) * 3] += w * virtex_p - left; 
+      }
+      else
+      {
+        pos[(w * (height+1) +  h) * 3] -= left; 
+      }
+
+      pos[(w * (height+1) +  h) * 3 + 1] += h * virtex_p/2.5 + top; 
+    }
   }
 
   geom.setAttribute("base_position", geom.attributes.position.clone());
   geom.computeVertexNormals();
 };
+
 
 const initScene = function () {
   scene = new THREE.Scene();
@@ -91,72 +109,67 @@ const initScene = function () {
   camera.position.set(0, 0, 550);
 };
 
-function rotateObject(object, degreeX = 0, degreeY = 0, degreeZ = 0) {
-  degreeX = (degreeX * Math.PI) / 180;
-  degreeY = (degreeY * Math.PI) / 180;
-  degreeZ = (degreeZ * Math.PI) / 180;
-
-  object.rotateX(degreeX);
-  object.rotateY(degreeY);
-  object.rotateZ(degreeZ);
-}
 
 var init = function () {
   initScene();
   mesh = new THREE.Object3D();
-  mesh.scale.set(100, 100, 100);
-  rotateObject(mesh, -90, -45, -180);
+  mesh.scale.set(250, 180, 100);
+  geometry = createIndexedPlaneGeometryFlag(virtex_w, virtex_h);
 
-  geometry = createIndexedPlaneGeometry(50, 75);
-  main(geometry, 1);
+  mainflag(geometry, virtex_w, virtex_h);
+  var textureloader = new THREE.TextureLoader();
+    textureloader.load('/images/flag.png',function(tx){
+    material = new THREE.MeshBasicMaterial({
+        map: tx,
+      wireframe: false
+    });
 
-  material = new THREE.MeshStandardMaterial({
-    color: 0x123524,
-    emissive: 0x353535,
-    metalness: 0.5,
-    wireframe: wireframe,
+    mesh.add(new THREE.Mesh(geometry, material));
+
+    scene.add(mesh);
+
   });
 
-  mesh.add(new THREE.Mesh(geometry, material));
-
-  scene.add(mesh);
-
+  
   animate();
 };
 
 window.onmousemove = function (e) {};
 
-var time = 0;
-var modifyGeometry = function () {
+var time = 0.0;
+var deltatime = 0.1;
+
+var modifyGeometryflag = function () {
   var pos = geometry.attributes.position.array;
-  var base_pos = geometry.attributes.base_position.array;
+  var tp = 0.1;
+  var wh = 0.004;
+  var ww = 0.001;
 
-  var uvs = geometry.attributes.uv.array;
+  for( var w = 1; w < virtex_w+1; w++)
+  {
+    for(var h = 0; h < virtex_h+1; h++)
+    {
+      var p;
 
-  for (var i = 0, j = 0; i < pos.length; i += 3, j += 2) {
-    var scale = 0.01 * Math.cos(uvs[j] * 7 + time * 0.01);
-    scale += 0.05 * Math.cos(uvs[j + 1] * 9 + time * 0.05);
+      p = pos[(w * (virtex_h+1) +  h) * 3 + 2];
+      p = p * Math.sin(time + tp * w);
+      pos[(w * (virtex_h+1) +  h) * 3 + 2] = Math.sin(w * 0.1 + h * 0.05 + time) * wh * Math.sqrt(Math.sqrt(w));
 
-    for (var k = 2; k < 6; k += 2) {
-      scale += 0.05 * k * Math.cos(uvs[j] * 9 * k + (k + time * 0.05));
-      scale += 0.05 * k * Math.cos(uvs[j + 1] * 7 * k + (k + time * 0.05));
+      p = pos[(w * (virtex_h+1) +  h) * 3 + 1];
+      p = p * Math.sin(time + tp * w);
+      pos[(w * (virtex_h+1) +  h) * 3 + 1] += Math.sin(w * 0.1 + h * 0.05 + time) * ww * Math.sqrt(Math.sqrt(Math.sqrt(w)));
+      
     }
-
-    scale *= scale * 0.7 * Math.sin(time * 0.04 + uvs[j] * 4);
-
-    pos[i] = base_pos[i] * (1 + scale);
-    pos[i + 1] = base_pos[i + 1] * (1 + scale);
-    pos[i + 2] = base_pos[i + 2] * (1 + scale);
   }
-
+    
   geometry.attributes.position.needsUpdate = true;
   geometry.computeVertexNormals();
 };
 
 var animate = function () {
-  time++;
+  time += deltatime;
   scene.requestFrame = requestAnimationFrame(animate);
-  modifyGeometry();
+  modifyGeometryflag();
 
   renderer.render(scene, camera);
 };

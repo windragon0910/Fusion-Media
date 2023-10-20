@@ -1,28 +1,28 @@
 export const services = [  {
-    name: ["GPT-3 | GPT 4", "Development"],
+    name: ["Ads?", "One thing only?"],
     services: [
-      "Language synthesis",
-      "Knowledge response",
-      "Chatbot development",
-      "Model tuning",
+      "Yes. That's all we do ...",
+      "Because we are",
+      "Great at it",
+      "Advertisment!",
     ],
   },
   {
-    name: ["AI", "Consulting"],
+    name: ["Advertisements", "That's it"],
     services: [
-      "Feasibility assessments",
-      "Use case identification",
-      "Performance evaluation",
-      "Strategy development",
+      "We have mastered",
+      "The Art of Getting",
+      "Your message across",
+      "And driving results",
     ],
   },
   {
-    name: ["Natural Language", "Processing"],
+    name: ["More customers?", "You want"],
     services: [
-      "Document categorization",
-      "Data mining",
-      "Text summarization",
-      "Entity identification",
+      "More time and money,",
+      "Money on your hands",
+      "It is up to you",
+      "Then join us",
     ],
   },
 ];

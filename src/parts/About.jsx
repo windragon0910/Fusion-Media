@@ -41,23 +41,23 @@ const About = () => {
         <div className="text-xl md:text-[40px] text-white font-bold py-8">
           <article className="text-center space-y-3 md:space-y-10">
             <div className="">
-              <span className="square ">leverage </span>
-              <span className="square ">morningside's </span>
+              <span className="square capitalize">Without marketing, </span>
+              <span className="square capitalize">you get no attention </span>
             </div>
             <div className=" ">
-              <span className="square ">comprehensive </span>
-              <span className="square ">AI </span>
-              <span className="square ">development </span>
+              <span className="square capitalize">Without attention </span>
+              <span className="square capitalize">you get </span>
+              <span className="square capitalize">no customers. </span>
             </div>
             <div className="">
-              <span className="square ">expertise </span>
-              <span className="square ">to </span>
-              <span className="square ">maximize </span>
-              <span className="square ">your </span>
+              <span className="square capitalize">Without </span>
+              <span className="square capitalize">customers, </span>
+              <span className="square capitalize">you have </span>
+              <span className="square capitalize">no business. </span>
             </div>
             <div className="">
-              <span className="square ">businesses </span>
-              <span className="square ">potential </span>
+              <span className="square capitalize">It's the most important tool, </span>
+              <span className="square capitalize">so why not be good at it? </span>
             </div>
           </article>
         </div>
